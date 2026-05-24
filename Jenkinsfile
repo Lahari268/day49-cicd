@@ -16,15 +16,15 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-        	steps {
+    		steps {
         		withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-            		bat """
-            		docker login -u %USER% -p %PASS%
+           			bat """
+            		echo %PASS% | docker login -u %USER% --password-stdin
             		docker push laharikalva/kravix-app:v1
             		"""
-        	}
-    	}
-	}
+        }
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
