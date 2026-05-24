@@ -3,13 +3,12 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Code') {
+	stage('Clone Code') {
             steps {
-                git 'https://github.com/Lahari268/day49-cicd.git'
-            }
-        }
-
+                git branch: 'main',
+                url: 'https://github.com/Lahari268/day49-cicd.git'
+    }
+}
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t laharikalva/kravix-app:v1 .'
